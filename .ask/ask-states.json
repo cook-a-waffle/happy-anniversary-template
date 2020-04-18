@@ -1,0 +1,28 @@
+{
+  "askcliStatesVersion": "2020-03-31",
+  "profiles": {
+    "default": {
+      "skillInfrastructure": {
+        "@ask-cli/lambda-deployer": {
+          "deployState": {
+            "default": {
+              "iamRole": "arn:aws:iam::291979144385:role/ResourcesAlexa",
+              "lambda": {
+                "arn": "arn:aws:lambda:us-east-1:291979144385:function:ask-happyanniversary-default-default-1587177216007",
+                "lastModified": "2020-04-18T23:37:03.326+0000",
+                "revisionId": "5f57bbc3-4cee-4dbd-a9c1-32b2b9527b3a"
+              }
+            }
+          }
+        }
+      },
+      "skillId": "amzn1.ask.skill.03c49c2e-c494-43f1-95cc-633a9f982344",
+      "skillMetadata": {
+        "lastDeployHash": "49En/LywGk79YQWDQ3F4ybBoxXQ="
+      },
+      "code": {
+        "default": {}
+      }
+    }
+  }
+}

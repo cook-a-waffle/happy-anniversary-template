@@ -1,0 +1,183 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "happy anniversary",
+            "modelConfiguration": {
+                "fallbackIntentSensitivity": {
+                    "level": "LOW"
+                }
+            },
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "RegisterAnniversary",
+                    "slots": [
+                        {
+                            "name": "day",
+                            "type": "AMAZON.Ordinal",
+                            "samples": [
+                                "the {day} of {month}",
+                                "{month} {day}",
+                                "{day}",
+                                "the {day}"
+                            ]
+                        },
+                        {
+                            "name": "month",
+                            "type": "AMAZON.Month",
+                            "samples": [
+                                "the {day} of {month}",
+                                "{month} {day}",
+                                "in {month}",
+                                "{month}"
+                            ]
+                        }
+                    ],
+                    "samples": [
+                        "{month}",
+                        "{day} ",
+                        "with the {day} of {month}",
+                        "for the {day} of {month} ",
+                        "for {month} {day} ",
+                        "the date of my anniversary is {month} {day} ",
+                        "my anniversary is  {month} {day} ",
+                        "set anniversary to {day} of {month} ",
+                        "new anniversary is {day} of {month} ",
+                        "my anniversary is {day} of {month} ",
+                        "{day} of {month} ",
+                        "{month} {day}",
+                        "{month} the {day}",
+                        "the {month}",
+                        "The {day}",
+                        "my anniversary is on {month} {day} ",
+                        "Set my anniversary",
+                        "Register my anniversary",
+                        "New Date",
+                        "New Anniversary",
+                        "Set new date",
+                        "Set new Anniversary",
+                        "Register new date",
+                        "Register new anniversary"
+                    ]
+                },
+                {
+                    "name": "SayAnniversary",
+                    "slots": [],
+                    "samples": [
+                        "when is my anniversary's date",
+                        "what is my anniversary date",
+                        "when is my anniversary date",
+                        "say anniversary",
+                        "tell me about my anniversary",
+                        "when is my anniversary"
+                    ]
+                },
+                {
+                    "name": "AMAZON.FallbackIntent",
+                    "samples": []
+                }
+            ],
+            "types": []
+        },
+        "dialog": {
+            "intents": [
+                {
+                    "name": "RegisterAnniversary",
+                    "confirmationRequired": true,
+                    "prompts": {
+                        "confirmation": "Confirm.Intent.1529127726620"
+                    },
+                    "slots": [
+                        {
+                            "name": "day",
+                            "type": "AMAZON.Ordinal",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1529127726620.625917296309"
+                            }
+                        },
+                        {
+                            "name": "month",
+                            "type": "AMAZON.Month",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1529127726620.1224383739968"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "delegationStrategy": "ALWAYS"
+        },
+        "prompts": [
+            {
+                "id": "Confirm.Intent.1529127726620",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Are you sure you want to register {month} {day} ?"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "That's {month} {day} , did I get that right?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1529127726620.625917296309",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "when is your birthday?"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "which day is your birthday?"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "ok. I heard you anniversary is in {month}, but which day exactly?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1529127726620.1224383739968",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "ok, the day is {day}. but in which month?"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "in which month is your birthday?"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "ok but in which month exactly?"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "please now tell me in which month is your anniversary"
+                    }
+                ]
+            }
+        ]
+    }
+}

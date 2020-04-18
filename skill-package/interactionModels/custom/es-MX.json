@@ -1,0 +1,135 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "feliz aniversario",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.FallbackIntent",
+                    "samples": []
+                },
+                {
+                    "name": "RegisterAnniversary",
+                    "slots": [
+                        {
+                            "name": "day",
+                            "type": "AMAZON.Ordinal",
+                            "samples": [
+                                "{day} de {month}",
+                                "{day}"
+                            ]
+                        },
+                        {
+                            "name": "month",
+                            "type": "AMAZON.Month",
+                            "samples": [
+                                "{day} de {month}",
+                                "{month}"
+                            ]
+                        }
+                    ],
+                    "samples": [
+                        "{month}",
+                        "{day}",
+                        "{day} de {month}",
+                        "registrar aniversario para el {day} de {month}",
+                        "registrar aniversario"
+                    ]
+                },
+                {
+                    "name": "SayAnniversary",
+                    "slots": [],
+                    "samples": [
+                        "que fecha es mi aniversario",
+                        "cuando es mi aniversario"
+                    ]
+                }
+            ],
+            "types": []
+        },
+        "dialog": {
+            "intents": [
+                {
+                    "name": "RegisterAnniversary",
+                    "confirmationRequired": true,
+                    "prompts": {
+                        "confirmation": "Confirm.Intent.890407293070"
+                    },
+                    "slots": [
+                        {
+                            "name": "day",
+                            "type": "AMAZON.Ordinal",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.890407293070.1291288015045"
+                            }
+                        },
+                        {
+                            "name": "month",
+                            "type": "AMAZON.Month",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.890407293070.231167996150"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "delegationStrategy": "ALWAYS"
+        },
+        "prompts": [
+            {
+                "id": "Confirm.Intent.890407293070",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "la fecha del {day} de {month} esta correcta?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.890407293070.1291288015045",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "¿Que día?"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "escuche que tu aniversario es en {month} . ¿Pero que día?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.890407293070.231167996150",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "¿De que mes?"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "escuche que es el día {day} . Pero ¿Que mes?"
+                    }
+                ]
+            }
+        ]
+    }
+}
