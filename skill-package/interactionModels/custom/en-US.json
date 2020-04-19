@@ -25,7 +25,7 @@
                     "samples": []
                 },
                 {
-                    "name": "RegisterAnniversary",
+                    "name": "RegisterAnniversaryIntent",
                     "slots": [
                         {
                             "name": "day",
@@ -76,7 +76,7 @@
                     ]
                 },
                 {
-                    "name": "SayAnniversary",
+                    "name": "SayAnniversaryIntent",
                     "slots": [],
                     "samples": [
                         "when is my anniversary's date",
@@ -97,7 +97,7 @@
         "dialog": {
             "intents": [
                 {
-                    "name": "RegisterAnniversary",
+                    "name": "RegisterAnniversaryIntent",
                     "confirmationRequired": true,
                     "prompts": {
                         "confirmation": "Confirm.Intent.1529127726620"
