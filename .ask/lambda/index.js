@@ -10,11 +10,8 @@ const handlers = require('./handlers');
 exports.handler = Alexa.SkillBuilders.custom()
     .addRequestHandlers(
         handlers.LaunchRequestHandler,
-        handlers.RegisterBirthdayIntentHandler,
-        handlers.SayBirthdayIntentHandler,
-        handlers.RemindBirthdayIntentHandler,
-        handlers.CelebrityBirthdaysIntentHandler,
-        handlers.TouchIntentHandler,
+        handlers.RegisterAnniversaryIntentHandler,
+        handlers.SayAnniversaryIntentHandler,
         handlers.HelpIntentHandler,
         handlers.CancelAndStopIntentHandler,
         handlers.FallbackIntentHandler,

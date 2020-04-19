@@ -12,11 +12,10 @@ const LaunchRequestHandler = {
 
         const day = sessionAttributes['day'];
         const monthName = sessionAttributes['monthName'];
-        const year = sessionAttributes['year'];
         const name = sessionAttributes['name'] || '';
         const sessionCounter = sessionAttributes['sessionCounter'];
 
-        const dateAvailable = day && monthName && year;
+        const dateAvailable = day && monthName;
         if (dateAvailable){
             // we can't use intent chaining because the target intent is not dialog based
             return SayAnniversaryIntentHandler.handle(handlerInput);
@@ -51,7 +50,6 @@ const RegisterAnniversaryIntentHandler = {
 
         if (intent.confirmationStatus === 'CONFIRMED') {
             const day = Alexa.getSlotValue(requestEnvelope, 'day');
-            const year = Alexa.getSlotValue(requestEnvelope, 'year');
             // we get the slot instead of the value directly as we also want to fetch the id
             const monthSlot = Alexa.getSlot(requestEnvelope, 'month');
             const monthName = monthSlot.value;
@@ -60,7 +58,6 @@ const RegisterAnniversaryIntentHandler = {
             sessionAttributes['day'] = day;
             sessionAttributes['month'] = month; //MM
             sessionAttributes['monthName'] = monthName;
-            sessionAttributes['year'] = year;
             // we can't use intent chaining because the target intent is not dialog based
             return SayAnniversaryIntentHandler.handle(handlerInput);
         }
@@ -82,12 +79,11 @@ const SayAnniversaryIntentHandler = {
 
         const day = sessionAttributes['day'];
         const month = sessionAttributes['month']; //MM
-        const year = sessionAttributes['year'];
         const name = sessionAttributes['name'] || '';
         let timezone = sessionAttributes['timezone'];
 
         let speechText = '', isBirthday = false;
-        const dateAvailable = day && month && year;
+        const dateAvailable = day && month ;
         if (dateAvailable){
             if (!timezone){
                 timezone = 'Europe/Rome';  // so it works on the simulator, you should uncomment this line, replace with your time zone and comment sentence below
@@ -95,60 +91,17 @@ const SayAnniversaryIntentHandler = {
                 //    .speak(handlerInput.t('NO_TIMEZONE_MSG'))
                 //    .getResponse();
             }
-            const birthdayData = logic.getBirthdayData(day, month, year, timezone);
-            sessionAttributes['age'] = birthdayData.age;
-            sessionAttributes['daysLeft'] = birthdayData.daysUntilBirthday;
-            speechText = handlerInput.t('DAYS_LEFT_MSG', {name: name, count: birthdayData.daysUntilBirthday});
-            speechText += handlerInput.t('WILL_TURN_MSG', {count: birthdayData.age + 1});
-            isBirthday = birthdayData.daysUntilBirthday === 0;
-            if (isBirthday) { // it's the user's birthday!
+            const annivData = logic.getAnnivData(day, month, timezone);
+            sessionAttributes['daysLeft'] = annivData.daysUntilAnniv;
+            speechText = handlerInput.t('DAYS_LEFT_MSG', {name: name, count: annivData.daysUntilAnniv});
+            isAnniv = annivData.daysUntilAnniv === 0;
+            if (isAnniv) { // it's the user's Anniv!
                 speechText = handlerInput.t('GREET_MSG', {name: name});
-                speechText += handlerInput.t('NOW_TURN_MSG', {count: birthdayData.age});
                 const adjustedDate = logic.getAdjustedDate(timezone);
-                // we'll now fetch celebrity birthdays from an external API
-                const response = await logic.fetchBirthdays(adjustedDate.day, adjustedDate.month, constants.MAX_BIRTHDAYS);
-                console.log(JSON.stringify(response));
-                // below we convert the API response to text that Alexa can read
-                const speechResponse = logic.convertBirthdaysResponse(handlerInput, response, false);
-                speechText += speechResponse;
+
             }
             speechText += handlerInput.t('POST_SAY_HELP_MSG');
 
-            // Add APL directive to response
-            if (util.supportsAPL(handlerInput)) {
-                const {Viewport} = handlerInput.requestEnvelope.context;
-                const resolution = Viewport.pixelWidth + 'x' + Viewport.pixelHeight;
-                handlerInput.responseBuilder.addDirective({
-                    type: 'Alexa.Presentation.APL.RenderDocument',
-                    version: '1.1',
-                    document: constants.APL.launchDoc,
-                    datasources: {
-                        launchData: {
-                            type: 'object',
-                            properties: {
-                                headerTitle: handlerInput.t('LAUNCH_HEADER_MSG'),
-                                mainText: isBirthday ? sessionAttributes['age'] : handlerInput.t('DAYS_LEFT_MSG', {name: '', count: sessionAttributes['daysLeft']}),
-                                hintString: handlerInput.t('LAUNCH_HINT_MSG'),
-                                logoImage: isBirthday ? null : Viewport.pixelWidth > 480 ? util.getS3PreSignedUrl('ZeroToHero/full_icon_512.png') : util.getS3PreSignedUrl('ZeroToHero/full_icon_108.png'),
-                                backgroundImage: isBirthday ? util.getS3PreSignedUrl('ZeroToHero/cake_'+resolution+'.png') : util.getS3PreSignedUrl('ZeroToHero/papers_'+resolution+'.png'),
-                                backgroundOpacity: isBirthday ? "1" : "0.5"
-                            },
-                            transformers: [{
-                                inputPath: 'hintString',
-                                transformer: 'textToHint',
-                            }]
-                        }
-                    }
-                });
-            }
-
-            // Add home card to response
-            // If you're using an Alexa Hosted Skill the images below will expire
-            // and could not be shown in the card. You should replace them with static images
-            handlerInput.responseBuilder.withStandardCard(
-                handlerInput.t('LAUNCH_HEADER_MSG'),
-                isBirthday ? sessionAttributes['age'] : handlerInput.t('DAYS_LEFT_MSG', {name: '', count: sessionAttributes['daysLeft']}),
-                isBirthday ? util.getS3PreSignedUrl('ZeroToHero/cake_480x480.png') : util.getS3PreSignedUrl('ZeroToHero/papers_480x480.png'));
         } else {
             speechText += handlerInput.t('MISSING_MSG');
             // we use intent chaining to trigger the birthday registration multi-turn
@@ -165,9 +118,6 @@ const SayAnniversaryIntentHandler = {
             .getResponse();
     }
 };
-
-
-
 
 const HelpIntentHandler = {
     canHandle(handlerInput) {
@@ -278,9 +228,6 @@ module.exports = {
     LaunchRequestHandler,
     RegisterAnniversaryIntentHandler,
     SayAnniversaryIntentHandler,
-    RemindBirthdayIntentHandler,
-    CelebrityBirthdaysIntentHandler,
-    TouchIntentHandler,
     HelpIntentHandler,
     CancelAndStopIntentHandler,
     FallbackIntentHandler,
