@@ -39,7 +39,7 @@
                         },
                         {
                             "name": "month",
-                            "type": "AMAZON.Month",
+                            "type": "months",
                             "samples": [
                                 "the {day} of {month}",
                                 "{month} {day}",
@@ -92,7 +92,85 @@
                     "samples": []
                 }
             ],
-            "types": []
+            "types": [
+                {
+                    "name": "months",
+                    "values": [
+                        {
+                            "id": "12",
+                            "name": {
+                                "value": "december"
+                            }
+                        },
+                        {
+                            "id": "11",
+                            "name": {
+                                "value": "november"
+                            }
+                        },
+                        {
+                            "id": "10",
+                            "name": {
+                                "value": "october"
+                            }
+                        },
+                        {
+                            "id": "9",
+                            "name": {
+                                "value": "september"
+                            }
+                        },
+                        {
+                            "id": "8",
+                            "name": {
+                                "value": "august"
+                            }
+                        },
+                        {
+                            "id": "7",
+                            "name": {
+                                "value": "july"
+                            }
+                        },
+                        {
+                            "id": "6",
+                            "name": {
+                                "value": "june"
+                            }
+                        },
+                        {
+                            "id": "5",
+                            "name": {
+                                "value": "may"
+                            }
+                        },
+                        {
+                            "id": "4",
+                            "name": {
+                                "value": "april"
+                            }
+                        },
+                        {
+                            "id": "3",
+                            "name": {
+                                "value": "march"
+                            }
+                        },
+                        {
+                            "id": "2",
+                            "name": {
+                                "value": "february"
+                            }
+                        },
+                        {
+                            "id": "1",
+                            "name": {
+                                "value": "january"
+                            }
+                        }
+                    ]
+                }
+            ]
         },
         "dialog": {
             "intents": [
@@ -114,7 +192,7 @@
                         },
                         {
                             "name": "month",
-                            "type": "AMAZON.Month",
+                            "type": "months",
                             "confirmationRequired": false,
                             "elicitationRequired": true,
                             "prompts": {
@@ -145,11 +223,11 @@
                 "variations": [
                     {
                         "type": "PlainText",
-                        "value": "when is your birthday?"
+                        "value": "when is your anniversary?"
                     },
                     {
                         "type": "PlainText",
-                        "value": "which day is your birthday?"
+                        "value": "which day is your anniversary?"
                     },
                     {
                         "type": "PlainText",
@@ -166,7 +244,7 @@
                     },
                     {
                         "type": "PlainText",
-                        "value": "in which month is your birthday?"
+                        "value": "in which month is your anniversary?"
                     },
                     {
                         "type": "PlainText",

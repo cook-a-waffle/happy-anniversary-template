@@ -8,6 +8,7 @@ const LaunchRequestHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
     },
     handle(handlerInput) {
+        console.log('LaunchRequestHandler mark')
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
 
         const day = sessionAttributes['day'];
@@ -23,16 +24,12 @@ const LaunchRequestHandler = {
 
         let speechText = !sessionCounter ? handlerInput.t('WELCOME_MSG', {name: name}) : handlerInput.t('WELCOME_BACK_MSG', {name: name});
         speechText += handlerInput.t('MISSING_MSG');
+        speechText += handlerInput.t('POST_SAY_HELP_MSG');
 
-        // we use intent chaining to trigger the birthday registration multi-turn
+        // we use intent chaining to trigger the anniversary registration multi-turn
         return handlerInput.responseBuilder
             .speak(speechText)
-            // we use intent chaining to trigger the birthday registration multi-turn
-            .addDelegateDirective({
-                name: 'RegisterBirthdayIntent',
-                confirmationStatus: 'NONE',
-                slots: {}
-            })
+            .reprompt(handlerInput.t('REPROMPT_MSG'))
             .getResponse();
     }
 };
@@ -43,25 +40,31 @@ const RegisterAnniversaryIntentHandler = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'RegisterAnniversaryIntent';
     },
     handle(handlerInput) {
+        console.log('RegisterAnniversaryIntentHandler mark')
         const {attributesManager, requestEnvelope} = handlerInput;
         // the attributes manager allows us to access session attributes
         const sessionAttributes = attributesManager.getSessionAttributes();
         const {intent} = requestEnvelope.request;
-
         if (intent.confirmationStatus === 'CONFIRMED') {
+            console.log('confirmationStatus = CONFIRMED')
             const day = Alexa.getSlotValue(requestEnvelope, 'day');
+            console.log('pos error 1')
             // we get the slot instead of the value directly as we also want to fetch the id
             const monthSlot = Alexa.getSlot(requestEnvelope, 'month');
+            console.log('pos error 2')
             const monthName = monthSlot.value;
+            console.log('pos error 3')
             const month = monthSlot.resolutions.resolutionsPerAuthority[0].values[0].value.id; //MM
-
+            console.log('pos error 4')
+            
             sessionAttributes['day'] = day;
             sessionAttributes['month'] = month; //MM
             sessionAttributes['monthName'] = monthName;
             // we can't use intent chaining because the target intent is not dialog based
+            console.log('registering new date: '+`${month} (${monthName}) ${day}`)
             return SayAnniversaryIntentHandler.handle(handlerInput);
         }
-
+        console.log('pos error 5')
         return handlerInput.responseBuilder
             .speak(handlerInput.t('REJECTED_MSG'))
             .reprompt(handlerInput.t('REPROMPT_MSG'))
@@ -74,7 +77,8 @@ const SayAnniversaryIntentHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'SayAnniversaryIntent';
     },
-    async handle(handlerInput) {
+    handle(handlerInput) {
+        console.log('SayAnniversaryIntentHandler mark')
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
 
         const day = sessionAttributes['day'];
@@ -82,7 +86,7 @@ const SayAnniversaryIntentHandler = {
         const name = sessionAttributes['name'] || '';
         let timezone = sessionAttributes['timezone'];
 
-        let speechText = '', isBirthday = false;
+        let speechText = '', isAnniv = false;
         const dateAvailable = day && month ;
         if (dateAvailable){
             if (!timezone){
@@ -98,13 +102,13 @@ const SayAnniversaryIntentHandler = {
             if (isAnniv) { // it's the user's Anniv!
                 speechText = handlerInput.t('GREET_MSG', {name: name});
                 const adjustedDate = logic.getAdjustedDate(timezone);
-
+                console.log('adjusted date: '+adjustedDate)
             }
             speechText += handlerInput.t('POST_SAY_HELP_MSG');
 
         } else {
             speechText += handlerInput.t('MISSING_MSG');
-            // we use intent chaining to trigger the birthday registration multi-turn
+            // we use intent chaining to trigger the anniversary registration multi-turn
             handlerInput.responseBuilder.addDelegateDirective({
                 name: 'RegisterAnniversaryIntent',
                 confirmationStatus: 'NONE',
@@ -122,9 +126,10 @@ const SayAnniversaryIntentHandler = {
 const HelpIntentHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.HelpIntent';
+        && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.HelpIntent';
     },
     handle(handlerInput) {
+        console.log('HelpIntentHandler mark')
         const speechText = handlerInput.t('HELP_MSG');
 
         return handlerInput.responseBuilder
@@ -141,6 +146,7 @@ const CancelAndStopIntentHandler = {
                 || Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.StopIntent');
     },
     handle(handlerInput) {
+        console.log('CancelAndStopIntentHandler mark')
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
         const name = sessionAttributes['name'] || '';
         const speechText = handlerInput.t('GOODBYE_MSG', {name: name});
@@ -162,6 +168,7 @@ const FallbackIntentHandler = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.FallbackIntent';
     },
     handle(handlerInput) {
+        console.log('FallbackIntentHandler mark')
         const speechText = handlerInput.t('FALLBACK_MSG');
 
         return handlerInput.responseBuilder
@@ -177,6 +184,7 @@ const FallbackIntentHandler = {
  * */
 const SessionEndedRequestHandler = {
     canHandle(handlerInput) {
+        console.log('SessionEndedRequestHandler mark')
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'SessionEndedRequest';
     },
     handle(handlerInput) {
