@@ -8,6 +8,7 @@ module.exports = {
     // APL documents
     APL: {
         sayAnnivDate: require('./documents/sayAnnivDate.json'),
-        funFact: require('./documents/funFact.json')
+        funFact: require('./documents/funFact.json'),
+        showPicture: require('./documents/showPicture.json')
     }
 }

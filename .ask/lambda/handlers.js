@@ -172,6 +172,33 @@ const FunFactIntentHandler = {
     }
 };
 
+const ShowPicIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+        && Alexa.getIntentName(handlerInput.requestEnvelope) === 'ShowPicIntent';
+    },
+    handle(handlerInput) {
+        console.log('ShowPicIntentHandler mark')
+        const speechText = handlerInput.t('SHOW_PIC_MSG');
+
+        // Add APL directive to response
+        if (util.supportsAPL(handlerInput)) {
+
+            handlerInput.responseBuilder.addDirective({
+                type: 'Alexa.Presentation.APL.RenderDocument',
+                version: '1.1',
+                document: constants.APL.showPicture,
+                datasources: datasources.showPicture(speechText)
+            });
+        }
+
+        return handlerInput.responseBuilder
+            .speak(speechText)
+            .reprompt(speechText)
+            .getResponse();
+    }
+};
+
 const HelpIntentHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
@@ -286,6 +313,7 @@ module.exports = {
     RegisterAnniversaryIntentHandler,
     SayAnniversaryIntentHandler,
     FunFactIntentHandler,
+    ShowPicIntentHandler,
     HelpIntentHandler,
     CancelAndStopIntentHandler,
     FallbackIntentHandler,

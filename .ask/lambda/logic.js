@@ -37,5 +37,9 @@ module.exports = {
         const today = moment().tz(timezone).startOf('day');
         const wasBorn = moment(person.date_of_birth.value).tz(timezone).startOf('day');
         return today.diff(wasBorn, 'years');
+    },
+    getRandomFromArray(array) {
+        result = array[Math.floor(Math.random() * array.length)];
+        return result;
     }
 }
