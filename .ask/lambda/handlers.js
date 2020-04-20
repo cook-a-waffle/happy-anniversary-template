@@ -154,6 +154,16 @@ const FunFactIntentHandler = {
         const speechText = handlerInput.t('FUN_FACT_INTRO_MSG');
         const sel_Fact = handlerInput.t('FUN_FACT_MSG_lst');
 
+        // Add APL directive to response
+        if (util.supportsAPL(handlerInput)) {
+
+            handlerInput.responseBuilder.addDirective({
+                type: 'Alexa.Presentation.APL.RenderDocument',
+                version: '1.1',
+                document: constants.APL.funFact,
+                datasources: datasources.funFactDS(speechText, sel_Fact)
+            });
+        }
 
         return handlerInput.responseBuilder
             .speak(speechText + sel_Fact)

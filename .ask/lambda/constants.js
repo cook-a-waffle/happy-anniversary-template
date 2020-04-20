@@ -7,6 +7,7 @@ module.exports = {
     REMINDERS_PERMISSION: ['alexa::alerts:reminders:skill:readwrite'],
     // APL documents
     APL: {
-        sayAnnivDate: require('./documents/sayAnnivDate.json')
+        sayAnnivDate: require('./documents/sayAnnivDate.json'),
+        funFact: require('./documents/funFact.json')
     }
 }

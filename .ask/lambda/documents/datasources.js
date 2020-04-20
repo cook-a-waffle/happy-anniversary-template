@@ -71,6 +71,41 @@ module.exports = {
             }
         } 
         return datasource;
+    },
+    funFactDS(factIntro, fact) {
+        let datasource = {
+            "bodyTemplate1Data": {
+                "type": "object",
+                "objectId": "bt1Sample",
+                "backgroundImage": {
+                    "contentDescription": null,
+                    "smallSourceUrl": null,
+                    "largeSourceUrl": null,
+                    "sources": [
+                        {
+                            "url": "https://waffle-content.s3.amazonaws.com/lovers-skill/happy-anniversary-APL-bg5.png",
+                            "size": "small",
+                            "widthPixels": 0,
+                            "heightPixels": 0
+                        },
+                        {
+                            "url": "https://waffle-content.s3.amazonaws.com/lovers-skill/happy-anniversary-APL-bg5.png",
+                            "size": "large",
+                            "widthPixels": 0,
+                            "heightPixels": 0
+                        }
+                    ]
+                },
+                "title": `${factIntro}`,
+                "textContent": {
+                    "primaryText": {
+                        "type": "PlainText",
+                        "text": `${fact}`
+                    }
+                },
+                "logoUrl": "https://d2o906d8ln7ui1.cloudfront.net/images/cheeseskillicon.png"
+            }
+        }
+        return datasource
     }
-    
 }
