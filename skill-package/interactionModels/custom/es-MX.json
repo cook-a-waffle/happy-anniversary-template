@@ -74,6 +74,18 @@
                         "cuentame un dato curioso",
                         "dame un dato curioso"
                     ]
+                },
+                {
+                    "name": "ShowPicIntent",
+                    "slots": [],
+                    "samples": [
+                        "muestrame una imagen",
+                        "puedo ver una imagen",
+                        "imagen",
+                        "muestrame una foto",
+                        "puedo ver una foto",
+                        "foto"
+                    ]
                 }
             ],
             "types": [

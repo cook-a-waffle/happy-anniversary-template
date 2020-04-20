@@ -105,6 +105,17 @@
                         "give me a fun fact",
                         "tell me a fun fact"
                     ]
+                },
+                {
+                    "name": "ShowPicIntent",
+                    "slots": [],
+                    "samples": [
+                        "can i see a photo",
+                        "photo",
+                        "show me a photo",
+                        "picture",
+                        "show me a picture "
+                    ]
                 }
             ],
             "types": [
