@@ -7,7 +7,6 @@ module.exports = {
     REMINDERS_PERMISSION: ['alexa::alerts:reminders:skill:readwrite'],
     // APL documents
     APL: {
-        launchDoc: require('./documents/launchScreen.json'),
-        listDoc: require('./documents/listScreen.json')
+        sayAnnivDate: require('./documents/sayAnnivDate.json')
     }
 }

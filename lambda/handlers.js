@@ -2,6 +2,7 @@ const Alexa = require('ask-sdk-core');
 const util = require('./util'); // utility functions
 const logic = require('./logic'); // this file encapsulates all "business" logic
 const constants = require('./constants'); // constants such as specific service permissions go here
+const datasources = require('./documents/datasources');
 
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
@@ -81,6 +82,7 @@ const SayAnniversaryIntentHandler = {
         const sessionCounter = sessionAttributes['sessionCounter'];
         const day = sessionAttributes['day'];
         const month = sessionAttributes['month']; //MM
+        const monthName = sessionAttributes['monthName'];
         const name = sessionAttributes['name'] || '';
         let timezone = sessionAttributes['timezone'];
 
@@ -105,7 +107,7 @@ const SayAnniversaryIntentHandler = {
             }
             const annivData = logic.getAnnivData(day, month, timezone);
             sessionAttributes['daysLeft'] = annivData.daysUntilAnniv;
-            speechText += handlerInput.t('DAYS_LEFT_MSG', {name: name, count: annivData.daysUntilAnniv});
+            speechText += handlerInput.t('DAYS_LEFT_MSG', {name: name, count: annivData.daysUntilAnniv, monthName: monthName, day: day});
             isAnniv = annivData.daysUntilAnniv === 0;
             if (isAnniv) { // it's the user's Anniv!
                 speechText = handlerInput.t('GREET_MSG', {name: name});
@@ -113,6 +115,17 @@ const SayAnniversaryIntentHandler = {
                 console.log('adjusted date: '+adjustedDate)
             }
             speechText += handlerInput.t('POST_SAY_HELP_MSG');
+
+            // Add APL directive to response
+            if (util.supportsAPL(handlerInput)) {
+
+                handlerInput.responseBuilder.addDirective({
+                    type: 'Alexa.Presentation.APL.RenderDocument',
+                    version: '1.1',
+                    document: constants.APL.sayAnnivDate,
+                    datasources: datasources.sayAnnivDateDS(monthName, day, isAnniv)
+                });
+            }
 
         } else {
             speechText += handlerInput.t('MISSING_MSG');
