@@ -58,6 +58,22 @@
                         "que fecha es mi aniversario",
                         "cuando es mi aniversario"
                     ]
+                },
+                {
+                    "name": "FunFactIntent",
+                    "slots": [],
+                    "samples": [
+                        "dato interesante",
+                        "date curioso",
+                        "un dato interesante",
+                        "un dato curioso",
+                        "a ver dame un dato interesante",
+                        "dame un dato interesante",
+                        "cuentame un dato",
+                        "dame un dato",
+                        "cuentame un dato curioso",
+                        "dame un dato curioso"
+                    ]
                 }
             ],
             "types": [

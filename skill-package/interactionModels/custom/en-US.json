@@ -90,6 +90,21 @@
                 {
                     "name": "AMAZON.FallbackIntent",
                     "samples": []
+                },
+                {
+                    "name": "FunFactIntent",
+                    "slots": [],
+                    "samples": [
+                        "a fun fact please",
+                        "a fun fact",
+                        "fun fact",
+                        "tell me a fun fact about the relationship",
+                        "give me a fun fact about the relationship",
+                        "tell me a fun fact about us",
+                        "give me a fun fact about us",
+                        "give me a fun fact",
+                        "tell me a fun fact"
+                    ]
                 }
             ],
             "types": [
