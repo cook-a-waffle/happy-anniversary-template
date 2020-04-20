@@ -12,6 +12,7 @@ exports.handler = Alexa.SkillBuilders.custom()
         handlers.LaunchRequestHandler,
         handlers.RegisterAnniversaryIntentHandler,
         handlers.SayAnniversaryIntentHandler,
+        handlers.FunFactIntentHandler,
         handlers.HelpIntentHandler,
         handlers.CancelAndStopIntentHandler,
         handlers.FallbackIntentHandler,

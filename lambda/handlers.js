@@ -15,6 +15,7 @@ const LaunchRequestHandler = {
         const monthName = sessionAttributes['monthName'];
         const name = sessionAttributes['name'] || '';
         const sessionCounter = sessionAttributes['sessionCounter'];
+        sessionAttributes['firstTurn'] = true;
 
         const dateAvailable = day && monthName;
         if (dateAvailable){
@@ -48,14 +49,10 @@ const RegisterAnniversaryIntentHandler = {
         if (intent.confirmationStatus === 'CONFIRMED') {
             console.log('confirmationStatus = CONFIRMED')
             const day = Alexa.getSlotValue(requestEnvelope, 'day');
-            console.log('pos error 1')
             // we get the slot instead of the value directly as we also want to fetch the id
             const monthSlot = Alexa.getSlot(requestEnvelope, 'month');
-            console.log('pos error 2')
             const monthName = monthSlot.value;
-            console.log('pos error 3')
             const month = monthSlot.resolutions.resolutionsPerAuthority[0].values[0].value.id; //MM
-            console.log('pos error 4')
             
             sessionAttributes['day'] = day;
             sessionAttributes['month'] = month; //MM
@@ -64,7 +61,6 @@ const RegisterAnniversaryIntentHandler = {
             console.log('registering new date: '+`${month} (${monthName}) ${day}`)
             return SayAnniversaryIntentHandler.handle(handlerInput);
         }
-        console.log('pos error 5')
         return handlerInput.responseBuilder
             .speak(handlerInput.t('REJECTED_MSG'))
             .reprompt(handlerInput.t('REPROMPT_MSG'))
@@ -81,12 +77,24 @@ const SayAnniversaryIntentHandler = {
         console.log('SayAnniversaryIntentHandler mark')
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
 
+        const firstTurn = sessionAttributes['firstTurn'];
+        const sessionCounter = sessionAttributes['sessionCounter'];
         const day = sessionAttributes['day'];
         const month = sessionAttributes['month']; //MM
         const name = sessionAttributes['name'] || '';
         let timezone = sessionAttributes['timezone'];
 
         let speechText = '', isAnniv = false;
+        console.log('first turn: '+firstTurn)
+        if (firstTurn){
+            if (sessionCounter > 0){
+                speechText += handlerInput.t('WELCOME_BACK_MSG');
+            } else {
+                speechText += handlerInput.t('WELCOME_MSG');
+            }
+            sessionAttributes['firstTurn'] = false;
+        }
+        console.log('speach text for SayAnniv: '+speechText)
         const dateAvailable = day && month ;
         if (dateAvailable){
             if (!timezone){
@@ -97,7 +105,7 @@ const SayAnniversaryIntentHandler = {
             }
             const annivData = logic.getAnnivData(day, month, timezone);
             sessionAttributes['daysLeft'] = annivData.daysUntilAnniv;
-            speechText = handlerInput.t('DAYS_LEFT_MSG', {name: name, count: annivData.daysUntilAnniv});
+            speechText += handlerInput.t('DAYS_LEFT_MSG', {name: name, count: annivData.daysUntilAnniv});
             isAnniv = annivData.daysUntilAnniv === 0;
             if (isAnniv) { // it's the user's Anniv!
                 speechText = handlerInput.t('GREET_MSG', {name: name});
@@ -118,6 +126,24 @@ const SayAnniversaryIntentHandler = {
 
         return handlerInput.responseBuilder
             .speak(speechText)
+            .reprompt(handlerInput.t('REPROMPT_MSG'))
+            .getResponse();
+    }
+};
+
+const FunFactIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+        && Alexa.getIntentName(handlerInput.requestEnvelope) === 'FunFactIntent';
+    },
+    handle(handlerInput) {
+        console.log('FunFactIntentHandler mark')
+        const speechText = handlerInput.t('FUN_FACT_INTRO_MSG');
+        const sel_Fact = handlerInput.t('FUN_FACT_MSG_lst');
+
+
+        return handlerInput.responseBuilder
+            .speak(speechText + sel_Fact)
             .reprompt(handlerInput.t('REPROMPT_MSG'))
             .getResponse();
     }
@@ -236,6 +262,7 @@ module.exports = {
     LaunchRequestHandler,
     RegisterAnniversaryIntentHandler,
     SayAnniversaryIntentHandler,
+    FunFactIntentHandler,
     HelpIntentHandler,
     CancelAndStopIntentHandler,
     FallbackIntentHandler,
