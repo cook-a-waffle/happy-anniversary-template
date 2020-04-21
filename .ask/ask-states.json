@@ -9,8 +9,8 @@
               "iamRole": "arn:aws:iam::291979144385:role/ResourcesAlexa",
               "lambda": {
                 "arn": "arn:aws:lambda:us-east-1:291979144385:function:ask-happyanniversary-default-default-1587177216007",
-                "lastModified": "2020-04-21T01:45:36.290+0000",
-                "revisionId": "f4fa66f8-1d8f-4f34-ba8d-11a3fd106b46"
+                "lastModified": "2020-04-21T01:54:41.916+0000",
+                "revisionId": "1401e73d-c885-41f0-8505-3d40ef965def"
               }
             }
           }

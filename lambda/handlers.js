@@ -26,7 +26,12 @@ const LaunchRequestHandler = {
 
         let speechText = !sessionCounter ? handlerInput.t('WELCOME_MSG', {name: name}) : handlerInput.t('WELCOME_BACK_MSG', {name: name});
         speechText += handlerInput.t('MISSING_MSG');
-        speechText += handlerInput.t('POST_SAY_HELP_MSG');
+
+        if (util.supportsAPL(handlerInput)) {
+            speechText += handlerInput.t('POST_SAY_HELP_MSG_wd');
+        } else {
+            speechText += handlerInput.t('POST_SAY_HELP_MSG');
+        }
 
         // we use intent chaining to trigger the anniversary registration multi-turn
         return handlerInput.responseBuilder
@@ -114,7 +119,12 @@ const SayAnniversaryIntentHandler = {
                 const adjustedDate = logic.getAdjustedDate(timezone);
                 console.log('adjusted date: '+adjustedDate)
             }
-            speechText += handlerInput.t('POST_SAY_HELP_MSG');
+
+            if (util.supportsAPL(handlerInput)) {
+                speechText += handlerInput.t('POST_SAY_HELP_MSG_wd');
+            } else {
+                speechText += handlerInput.t('POST_SAY_HELP_MSG');
+            }
 
             // Add APL directive to response
             if (util.supportsAPL(handlerInput)) {
@@ -192,7 +202,12 @@ const ShowPicIntentHandler = {
         } else {
         // If APL is not supported, respond accordingly
             speechText += handlerInput.t('NO_DISPLAY_MSG') 
-            speechText += handlerInput.t('HELP_MSG')
+
+            if (util.supportsAPL(handlerInput)) {
+                speechText += handlerInput.t('HELP_MSG_wd');
+            } else {
+                speechText += handlerInput.t('HELP_MSG');
+            }
         }
 
         return handlerInput.responseBuilder
@@ -209,7 +224,12 @@ const HelpIntentHandler = {
     },
     handle(handlerInput) {
         console.log('HelpIntentHandler mark')
-        const speechText = handlerInput.t('HELP_MSG');
+        let speechText = '';
+        if (util.supportsAPL(handlerInput)) {
+            speechText += handlerInput.t('HELP_MSG_wd');
+        } else {
+            speechText += handlerInput.t('HELP_MSG');
+        }
 
         return handlerInput.responseBuilder
             .speak(speechText)
