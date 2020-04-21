@@ -178,23 +178,26 @@ const ShowPicIntentHandler = {
         && Alexa.getIntentName(handlerInput.requestEnvelope) === 'ShowPicIntent';
     },
     handle(handlerInput) {
-        console.log('ShowPicIntentHandler mark')
-        const speechText = handlerInput.t('SHOW_PIC_MSG');
-
+        console.log('ShowPicIntentHandler mark');
+        let speechText = ''
         // Add APL directive to response
         if (util.supportsAPL(handlerInput)) {
-
+            speechText += handlerInput.t('SHOW_PIC_MSG');
             handlerInput.responseBuilder.addDirective({
                 type: 'Alexa.Presentation.APL.RenderDocument',
                 version: '1.1',
                 document: constants.APL.showPicture,
                 datasources: datasources.showPicture(speechText)
             });
+        } else {
+        // If APL is not supported, respond accordingly
+            speechText += handlerInput.t('NO_DISPLAY_MSG') 
+            speechText += handlerInput.t('HELP_MSG')
         }
 
         return handlerInput.responseBuilder
             .speak(speechText)
-            .reprompt(speechText)
+            .reprompt(handlerInput.t('REPROMPT_MSG'))
             .getResponse();
     }
 };

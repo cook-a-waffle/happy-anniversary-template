@@ -146,13 +146,13 @@ module.exports = {
                     "largeSourceUrl": null,
                     "sources": [
                         {
-                            "url": "https://waffle-content.s3.amazonaws.com/lovers-skill/happy-anniversary-APL-couple1.jpg",
+                            "url": selPic,
                             "size": "small",
                             "widthPixels": 0,
                             "heightPixels": 0
                         },
                         {
-                            "url": "https://waffle-content.s3.amazonaws.com/lovers-skill/happy-anniversary-APL-couple1.jpg",
+                            "url": selPic,
                             "size": "large",
                             "widthPixels": 0,
                             "heightPixels": 0

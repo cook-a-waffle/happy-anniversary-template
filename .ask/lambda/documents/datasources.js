@@ -1,3 +1,5 @@
+const logic = require('../logic')
+
 const pic_lst = [
     'https://waffle-content.s3.amazonaws.com/lovers-skill/happy-anniversary-APL-couple1.jpg', 'https://waffle-content.s3.amazonaws.com/lovers-skill/happy-anniversary-APL-couple2.jpg','https://waffle-content.s3.amazonaws.com/lovers-skill/happy-anniversary-APL-couple3.jpg','https://waffle-content.s3.amazonaws.com/lovers-skill/happy-anniversary-APL-couple4.jpg'
 ];
@@ -113,6 +115,7 @@ module.exports = {
         return datasource
     },
     showPicture(header) {
+        const selPic = logic.getRandomFromArray(pic_lst)
         let datasource = {
             "bodyTemplate7Data": {
                 "type": "object",
@@ -143,13 +146,13 @@ module.exports = {
                     "largeSourceUrl": null,
                     "sources": [
                         {
-                            "url": "https://waffle-content.s3.amazonaws.com/lovers-skill/happy-anniversary-APL-couple1.jpg",
+                            "url": selPic,
                             "size": "small",
                             "widthPixels": 0,
                             "heightPixels": 0
                         },
                         {
-                            "url": "https://waffle-content.s3.amazonaws.com/lovers-skill/happy-anniversary-APL-couple1.jpg",
+                            "url": selPic,
                             "size": "large",
                             "widthPixels": 0,
                             "heightPixels": 0
