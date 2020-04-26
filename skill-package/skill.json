@@ -25,7 +25,7 @@
         }
       },
       "isAvailableWorldwide": true,
-      "testingInstructions": "Sample Testing Instructions.",
+      "testingInstructions": "1) 'Say alexa open happy anniversary' 2) Register anniversary date 3) select an activity",
       "category": "KNOWLEDGE_AND_TRIVIA",
       "distributionCountries": []
     },
@@ -46,6 +46,19 @@
       {
         "name": "alexa::profile:given_name:read"
       }
-    ]
+    ],
+    "privacyAndCompliance": {
+      "allowsPurchases": false,
+      "usesPersonalInfo": false,
+      "isChildDirected": false,
+      "isExportCompliant": true,
+      "containsAds": false,
+      "locales": {
+        "en-US": {
+          "privacyPolicyUrl": "https://waffle-content.s3.amazonaws.com/lovers-skill/privacypolicy.md",
+          "termsOfUseUrl": "https://waffle-content.s3.amazonaws.com/lovers-skill/termsconditions.md"
+        }
+      }
+    }
   }
 }
