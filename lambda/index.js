@@ -25,7 +25,7 @@ exports.handler = Alexa.SkillBuilders.custom()
         interceptors.LoadAttributesRequestInterceptor,
         interceptors.LocalisationRequestInterceptor,
         interceptors.LoggingRequestInterceptor,
-        interceptors.LoadNameRequestInterceptor,
+        // interceptors.LoadNameRequestInterceptor,
         interceptors.LoadTimezoneRequestInterceptor)
     .addResponseInterceptors(
         interceptors.LoggingResponseInterceptor,

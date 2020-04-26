@@ -9,8 +9,8 @@
               "iamRole": "arn:aws:iam::291979144385:role/ResourcesAlexa",
               "lambda": {
                 "arn": "arn:aws:lambda:us-east-1:291979144385:function:ask-happyanniversary-default-default-1587177216007",
-                "lastModified": "2020-04-26T19:47:36.731+0000",
-                "revisionId": "082bf44b-9b8c-4bca-b332-e85ce162304a"
+                "lastModified": "2020-04-26T19:58:49.315+0000",
+                "revisionId": "f8482041-7dab-4c95-b276-b2fff688dc9a"
               }
             }
           }
@@ -18,7 +18,7 @@
       },
       "skillId": "amzn1.ask.skill.03c49c2e-c494-43f1-95cc-633a9f982344",
       "skillMetadata": {
-        "lastDeployHash": "aJk84sCouPqWMDAF8wIpMaFeYRA="
+        "lastDeployHash": "xqUl9j/1Kg38G+OL1+TQdcgwl+Q="
       },
       "code": {
         "default": {}

@@ -3,14 +3,25 @@
     "publishingInformation": {
       "locales": {
         "en-US": {
-          "summary": "Sample Short Description",
+          "summary": "Countdown to you Anniversary",
           "examplePhrases": [
             "Alexa open happy anniversary",
-            "hello",
-            "help"
+            "Alexa tell happy anniversary to show me a picture",
+            "Alexa ask happy anniversary to register my anniversary"
+          ],
+          "keywords":[
+            "Relationships",
+            "Boyfriend",
+            "Girlfriend",
+            "Anniversary",
+            "Happy Anniversary",
+            "Countdown"
           ],
           "name": "Happy Anniversary",
-          "description": "Sample Full Description"
+          "description": "This skill will help you when is you anniversary, and will tell you the days left.",
+          "smallIconUri":"https://waffle-content.s3.amazonaws.com/lovers-skill/happy-anniversary-Logo.png",
+          "largeIconUri":"https://waffle-content.s3.amazonaws.com/lovers-skill/happy-anniversary-Logo.png",
+          "updatesDescription":"Set new anniversary date and get countdown.",
         }
       },
       "isAvailableWorldwide": true,
