@@ -19,8 +19,8 @@
           ],
           "name": "Happy Anniversary",
           "description": "This skill will help you when is you anniversary, and will tell you the days left.",
-          "smallIconUri":"https://waffle-content.s3.amazonaws.com/lovers-skill/happy-anniversary-Logo.png",
-          "largeIconUri":"https://waffle-content.s3.amazonaws.com/lovers-skill/happy-anniversary-Logo.png",
+          "smallIconUri":"https://waffle-content.s3.amazonaws.com/lovers-skill/happy-anniversary-Logo-small.png",
+          "largeIconUri":"https://waffle-content.s3.amazonaws.com/lovers-skill/happy-anniversary-Logo-large.png",
           "updatesDescription":"Set new anniversary date and get countdown."
         }
       },
