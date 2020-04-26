@@ -11,16 +11,6 @@
           ],
           "name": "Happy Anniversary",
           "description": "Sample Full Description"
-        },
-        "es-MX": {
-          "summary": "Sample Short Description",
-          "examplePhrases": [
-            "Alexa abre feliz aniversario",
-            "hello",
-            "help"
-          ],
-          "name": "Happy Anniversary",
-          "description": "Sample Full Description"
         }
       },
       "isAvailableWorldwide": true,
