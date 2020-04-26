@@ -163,6 +163,7 @@ const FunFactIntentHandler = {
         console.log('FunFactIntentHandler mark')
         const speechText = handlerInput.t('FUN_FACT_INTRO_MSG');
         const sel_Fact = handlerInput.t('FUN_FACT_MSG_lst');
+        const post_msg = handlerInput.t('POST_ACTIVITY_MSG');
 
         // Add APL directive to response
         if (util.supportsAPL(handlerInput)) {
@@ -176,7 +177,7 @@ const FunFactIntentHandler = {
         }
 
         return handlerInput.responseBuilder
-            .speak(speechText + sel_Fact)
+            .speak(speechText + sel_Fact + post_msg)
             .reprompt(handlerInput.t('REPROMPT_MSG'))
             .getResponse();
     }
@@ -199,15 +200,11 @@ const ShowPicIntentHandler = {
                 document: constants.APL.showPicture,
                 datasources: datasources.showPicture(speechText)
             });
+            speechText += handlerInput.t('POST_ACTIVITY_MSG')
         } else {
         // If APL is not supported, respond accordingly
             speechText += handlerInput.t('NO_DISPLAY_MSG') 
-
-            if (util.supportsAPL(handlerInput)) {
-                speechText += handlerInput.t('HELP_MSG_wd');
-            } else {
-                speechText += handlerInput.t('HELP_MSG');
-            }
+            speechText += handlerInput.t('HELP_MSG_wd');
         }
 
         return handlerInput.responseBuilder
