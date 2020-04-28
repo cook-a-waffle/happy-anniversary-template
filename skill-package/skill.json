@@ -9,7 +9,7 @@
             "Alexa tell happy anniversary to show me a picture",
             "Alexa ask happy anniversary to register my anniversary"
           ],
-          "keywords":[
+          "keywords": [
             "Relationships",
             "Boyfriend",
             "Girlfriend",
@@ -19,9 +19,9 @@
           ],
           "name": "Happy Anniversary",
           "description": "This skill will help you when is you anniversary, and will tell you the days left.",
-          "smallIconUri":"https://waffle-content.s3.amazonaws.com/lovers-skill/happy-anniversary-Logo-small.png",
-          "largeIconUri":"https://waffle-content.s3.amazonaws.com/lovers-skill/happy-anniversary-Logo-large.png",
-          "updatesDescription":"Set new anniversary date and get countdown."
+          "smallIconUri": "https://waffle-content.s3.amazonaws.com/lovers-skill/happy-anniversary-Logo-small.png",
+          "largeIconUri": "https://waffle-content.s3.amazonaws.com/lovers-skill/happy-anniversary-Logo-large.png",
+          "updatesDescription": "Set new anniversary date and get countdown."
         }
       },
       "isAvailableWorldwide": true,
@@ -42,11 +42,6 @@
       }
     },
     "manifestVersion": "1.0",
-    "permissions": [
-      {
-        "name": "alexa::profile:given_name:read"
-      }
-    ],
     "privacyAndCompliance": {
       "allowsPurchases": false,
       "usesPersonalInfo": false,
